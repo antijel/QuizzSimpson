@@ -1,0 +1,39 @@
+[  
+  {
+    "imageId": "homer.jpg",
+    "soundId": "none",
+    "difficultyId": "0",
+    "question":"Quel est le prénom du père Simpson ?",
+    "goodAnswerId": "0",
+    "answers": [
+      {
+        "sentence": "Homer"
+      },
+      {
+        "sentence": "Barney"
+      },
+      {
+        "sentence": "Moe"
+      }
+    ]
+  },
+  {
+    "imageId": "marge.jpg",
+    "soundId": "none",
+    "difficultyId": "0",
+    "question":"Quel est le prénom de la mère Simpson ?",
+    "goodAnswerId": "3",
+    "answers": [
+      {
+        "sentence": "Edna"
+      },
+      {
+        "sentence": "Maude"
+      },
+      {
+        "sentence": "Marge"
+      }
+    ]
+  },
+
+]

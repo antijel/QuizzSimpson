@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:text="Lancer un Quizz"
         app:layout_constraintBottom_toTopOf="@+id/questionListButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/backgoundMainImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/backgoundMainImageView"
+        app:layout_constraintTop_toBottomOf="@+id/backgoundMainImageView" />
 
     <Button
         android:id="@+id/questionListButton"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/questionListButton" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/backgoundMainImageView"
         android:layout_width="151dp"
         android:layout_height="148dp"
         app:layout_constraintBottom_toTopOf="@+id/quizzButton"
