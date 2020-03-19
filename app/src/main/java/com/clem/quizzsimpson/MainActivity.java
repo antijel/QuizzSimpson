@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FlashCard question1 = new FlashCard("Quel est le prénom du père Simpson ?","none","homer.jpg",answer1,1);
 
         ArrayList<String> answer2 = new ArrayList<String>();
-        answer1.add("Edna");
-        answer1.add("Maude");
-        answer1.add("Marge");;
+        answer2.add("Edna");
+        answer2.add("Maude");
+        answer2.add("Marge");;
         FlashCard question2 = new FlashCard("Quel est le prénom de la mère Simpson ?","none","marge.jpg",answer2,2);
 
         ArrayList<FlashCard> flashCardsList = new ArrayList<>();
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         intentQuizz.putExtra("flashCardId", 0);
         intentQuizz.putExtra("quiz", quiz);
+        intentQuizz.putExtra("numberGoodAnswer",0);
 
         startActivity(intentQuizz);
     }

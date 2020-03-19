@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     public Quiz quiz;
     public int indexFlashCard;
-
+    public int numberGoodAnswer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,11 @@ public class SurveyActivity extends AppCompatActivity {
         Intent quizzIntent = getIntent();
 
         //Retrieve quiz information's and index of the FlashCard
-        indexFlashCard = quizzIntent.getIntExtra("flashCardId",0);
+        if(quizzIntent.hasExtra("flashCardId")){
+            indexFlashCard = quizzIntent.getIntExtra("flashCardId",0);
+        }
         quiz = quizzIntent.getParcelableExtra("quiz");
+        numberGoodAnswer = quizzIntent.getIntExtra("numberGoodAnswer",0);
 
         final FlashCard flashCard = quiz.flashCardList.get(indexFlashCard);
 
@@ -35,7 +39,7 @@ public class SurveyActivity extends AppCompatActivity {
         TextView questionTextView = findViewById(R.id.questionTextView);
         questionTextView.setText(flashCard.question);
         TextView questionNumberTextView = findViewById(R.id.questionNumberTextView);
-        questionNumberTextView.setText(indexFlashCard + "/" + quiz.flashCardList.size());
+        questionNumberTextView.setText(indexFlashCard + 1 + "/" + quiz.flashCardList.size());
         RadioButton answer1 = findViewById(R.id.answerRadioButton1);
         answer1.setText(flashCard.answerList.get(0));
         RadioButton answer2 = findViewById(R.id.answerRadioButton2);
@@ -43,6 +47,8 @@ public class SurveyActivity extends AppCompatActivity {
         RadioButton answer3 = findViewById(R.id.answerRadioButton3);
         answer3.setText(flashCard.answerList.get(2));
         Button validateButton = findViewById(R.id.validateButton);
+        validateButton.setText("Valider");
+        validateButton.setTag("validate");
 
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,30 +56,38 @@ public class SurveyActivity extends AppCompatActivity {
                 Button validateButton = findViewById(R.id.validateButton);
 
                 //IF User want to check his response
-                if(validateButton.getText() == "Valider"){
+                if(validateButton.getTag() == "validate"){
                     checkAnswer(flashCard);
 
                 //IF User want to go to the next question
-                }else if(validateButton.getText() == "Question suivante"){
-                    Intent intentQuizz = new Intent(SurveyActivity.this, SurveyActivity.class);
-                    intentQuizz.putExtra("flashCardId", indexFlashCard + 1);
-                    intentQuizz.putExtra("quiz", quiz);
-                    startActivity(intentQuizz);
+                }else if(validateButton.getTag() == "next"){
+                    Intent intentQuizzNext = getIntent();
+                    indexFlashCard = indexFlashCard + 1 ;
+                    intentQuizzNext.putExtra("flashCardId", indexFlashCard);
+                    intentQuizzNext.putExtra("numberGoodAnswer", numberGoodAnswer);
+                    startActivity(intentQuizzNext);
 
                 //IF Quizz is finished
-                }else if(validateButton.getText() == "Voir les resultat"){
-                    //Go back to menu
+                }else if(validateButton.getTag() == "result"){
+                    //Go to result
+                    //Log.i("Button", "onClick: " + validateButton.getTag());
+
+                    Intent intentResult = new Intent(SurveyActivity.this, ResultActivity.class);
+                    intentResult.putExtra("difficultyId",quiz.difficultyId );
+                    intentResult.putExtra("numberGoodAnswer", numberGoodAnswer + "/" + quiz.flashCardList.size());
+                    intentResult.putExtra("ratio",((float)numberGoodAnswer/(float)quiz.flashCardList.size())*100);
+
+                    Log.i("Answer", "onClick: percentage : "+ numberGoodAnswer + " / " + quiz.flashCardList.size() + " = " +numberGoodAnswer/quiz.flashCardList.size()+ "* 100 = " + (numberGoodAnswer/quiz.flashCardList.size())*100);
+
+                    startActivity(intentResult);
                 }
             }
         });
-
     }
 
     //Function to check if the answer given is true
     private void checkAnswer(FlashCard flashCard) {
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
-
-        Log.i("Button", "checkAnswer: "+ radioGroup.getCheckedRadioButtonId());
 
         //UI
         RadioButton radioButtonChecked = findViewById(radioGroup.getCheckedRadioButtonId());
@@ -81,20 +95,32 @@ public class SurveyActivity extends AppCompatActivity {
         TextView answerTextView = findViewById(R.id.answerTextView);
         Button validateButton = findViewById(R.id.validateButton);
 
-        Log.i("Answer", "checkAnswer: " + radioButtonChecked.getText() + " = " + flashCard.answerList.get(flashCard.goodAnswerId));
+        //Check if one radioButton is selected
+        if(radioButtonChecked == null){
+            Toast.makeText(
+                    SurveyActivity.this,
+                    "Veuillez sélectionner une réponse !!",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Good Answer
         if(radioButtonChecked.getText() == flashCard.answerList.get(flashCard.goodAnswerId)){
             resultTextView.setText("Bonne réponse !!");
-            //Log.i("Answer", "checkAnswer: Good");
-
+            numberGoodAnswer++;
+        //Bad Answer
         }else{
             resultTextView.setText("Mauvaise réponse ..");
-            //Log.i("Answer", "checkAnswer: Bad");
         }
 
         //MAJ UI
         answerTextView.setText("La bonne réponse est : " + flashCard.answerList.get(flashCard.goodAnswerId));
-        validateButton.setText("Question suivante");
+
+        if(indexFlashCard + 1 == quiz.flashCardList.size()){
+            validateButton.setText("Resultat");
+            validateButton.setTag("result");
+        }else{
+            validateButton.setText("Question suivante");
+            validateButton.setTag("next");
+        }
     }
-
-
 }

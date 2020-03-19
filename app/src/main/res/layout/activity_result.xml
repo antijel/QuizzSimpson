@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity">
+
+    <TextView
+        android:id="@+id/difficultyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facile"
+        app:layout_constraintBottom_toTopOf="@+id/ratioTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ratioTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bonnes réponses : 4/10"
+        app:layout_constraintBottom_toTopOf="@+id/percentageTextView"
+        app:layout_constraintEnd_toEndOf="@+id/difficultyTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/difficultyTextView"
+        app:layout_constraintTop_toBottomOf="@+id/difficultyTextView" />
+
+    <TextView
+        android:id="@+id/percentageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="42%"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/ofSuccessTextView"
+        app:layout_constraintEnd_toEndOf="@+id/ratioTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/ratioTextView"
+        app:layout_constraintTop_toBottomOf="@+id/ratioTextView" />
+
+    <TextView
+        android:id="@+id/ofSuccessTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="de réussite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/percentageTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/percentageTextView"
+        app:layout_constraintTop_toBottomOf="@+id/percentageTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

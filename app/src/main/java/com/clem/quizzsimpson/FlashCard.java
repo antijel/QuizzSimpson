@@ -59,4 +59,7 @@ public class FlashCard implements Parcelable {
         }
     };
 
+    public ArrayList<String> getAnswerList() {
+        return answerList;
+    }
 }
