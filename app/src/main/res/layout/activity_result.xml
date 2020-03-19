@@ -7,7 +7,7 @@
     tools:context=".ResultActivity">
 
     <TextView
-        android:id="@+id/difficultyTextView"
+        android:id="@+id/QuestionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Facile"
@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:text="Bonnes réponses : 4/10"
         app:layout_constraintBottom_toTopOf="@+id/percentageTextView"
-        app:layout_constraintEnd_toEndOf="@+id/difficultyTextView"
+        app:layout_constraintEnd_toEndOf="@+id/QuestionTextView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/difficultyTextView"
-        app:layout_constraintTop_toBottomOf="@+id/difficultyTextView" />
+        app:layout_constraintStart_toStartOf="@+id/QuestionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/QuestionTextView" />
 
     <TextView
         android:id="@+id/percentageTextView"

@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.questionListButton:
                 Log.i("Button", "onClick: Question List");
+                Intent intentList = new Intent(MainActivity.this,QuestionListActivity.class);
+                startActivity(intentList);
                 break;
 
             case R.id.aboutButton:
@@ -89,14 +91,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answerEasy1.add("Moe");
             answerEasy1.add("Homer");
             answerEasy1.add("Barney");
-            ;
+
             FlashCard questionEasy1 = new FlashCard("Quel est le prénom du père Simpson ?", "none", "homer.jpg", answerEasy1, 1);
 
             ArrayList<String> answerEasy2 = new ArrayList<String>();
             answerEasy2.add("Edna");
             answerEasy2.add("Maude");
             answerEasy2.add("Marge");
-            ;
+
             FlashCard questionEasy2 = new FlashCard("Quel est le prénom de la mère Simpson ?", "none", "marge.jpg", answerEasy2, 2);
 
             ArrayList<FlashCard> flashCardsListEasy = new ArrayList<>();
@@ -117,14 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answerMedium1.add("Nelson");
             answerMedium1.add("Milhouse");
             answerMedium1.add("Bart");
-            ;
+
             FlashCard questionMedium1 = new FlashCard("Quel est le prénom du fils Simpson ?", "none", "bart.jpg", answerMedium1, 2);
 
             ArrayList<String> answerMedium2 = new ArrayList<String>();
             answerMedium2.add("Jessica");
             answerMedium2.add("Lisa");
             answerMedium2.add("Francine");
-            ;
+
             FlashCard questionMedium2 = new FlashCard("Quel est le prénom de la fille ainée Simpson ?", "none", "lisa.jpg", answerMedium2, 1);
 
             ArrayList<FlashCard> flashCardsListMedium = new ArrayList<>();

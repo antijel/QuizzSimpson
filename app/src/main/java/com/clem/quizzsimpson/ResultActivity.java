@@ -15,7 +15,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent resultIntent = getIntent();
 
-        TextView difficultyTextView = findViewById(R.id.difficultyTextView);
+        TextView difficultyTextView = findViewById(R.id.QuestionTextView);
         TextView ratioTextView = findViewById(R.id.ratioTextView);
         TextView percentageTextView = findViewById(R.id.percentageTextView);
 
