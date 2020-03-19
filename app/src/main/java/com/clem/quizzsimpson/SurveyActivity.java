@@ -59,7 +59,7 @@ public class SurveyActivity extends AppCompatActivity {
                 if(validateButton.getTag() == "validate"){
                     checkAnswer(flashCard);
 
-                //IF User want to go to the next question
+                //IF Question is answered and User want to go to the next question
                 }else if(validateButton.getTag() == "next"){
                     Intent intentQuizzNext = getIntent();
                     indexFlashCard = indexFlashCard + 1 ;
@@ -67,18 +67,12 @@ public class SurveyActivity extends AppCompatActivity {
                     intentQuizzNext.putExtra("numberGoodAnswer", numberGoodAnswer);
                     startActivity(intentQuizzNext);
 
-                //IF Quizz is finished
+                //IF Quizz is finished and User want to see results
                 }else if(validateButton.getTag() == "result"){
-                    //Go to result
-                    //Log.i("Button", "onClick: " + validateButton.getTag());
-
                     Intent intentResult = new Intent(SurveyActivity.this, ResultActivity.class);
                     intentResult.putExtra("difficultyId",quiz.difficultyId );
                     intentResult.putExtra("numberGoodAnswer", numberGoodAnswer + "/" + quiz.flashCardList.size());
                     intentResult.putExtra("ratio",((float)numberGoodAnswer/(float)quiz.flashCardList.size())*100);
-
-                    Log.i("Answer", "onClick: percentage : "+ numberGoodAnswer + " / " + quiz.flashCardList.size() + " = " +numberGoodAnswer/quiz.flashCardList.size()+ "* 100 = " + (numberGoodAnswer/quiz.flashCardList.size())*100);
-
                     startActivity(intentResult);
                 }
             }

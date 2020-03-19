@@ -58,8 +58,4 @@ public class FlashCard implements Parcelable {
             return new FlashCard[size];
         }
     };
-
-    public ArrayList<String> getAnswerList() {
-        return answerList;
-    }
 }
