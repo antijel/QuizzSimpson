@@ -1,12 +1,9 @@
 package com.clem.quizzsimpson;
 
-import android.media.MediaPlayer;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class FlashCard implements Parcelable {
 

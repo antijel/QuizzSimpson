@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CDFED90F"
     tools:context=".MainActivity">
 
     <TextView
@@ -24,9 +25,8 @@
         android:layout_height="wrap_content"
         android:text="Lancer un Quizz"
         app:layout_constraintBottom_toTopOf="@+id/questionListButton"
-        app:layout_constraintEnd_toEndOf="@+id/backgoundMainImageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/backgoundMainImageView"
+        app:layout_constraintEnd_toEndOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
         app:layout_constraintTop_toBottomOf="@+id/backgoundMainImageView" />
 
     <Button
@@ -53,13 +53,13 @@
 
     <ImageView
         android:id="@+id/backgoundMainImageView"
-        android:layout_width="151dp"
-        android:layout_height="148dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/quizzButton"
-        app:layout_constraintEnd_toEndOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        app:srcCompat="@drawable/simpsonsmenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

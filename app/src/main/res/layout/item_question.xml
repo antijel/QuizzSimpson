@@ -20,7 +20,9 @@
         android:id="@+id/QuestionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:maxWidth="235dp"
+        android:singleLine="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="@+id/answerTextView1"
         app:layout_constraintTop_toTopOf="@+id/mediaImageView"
         tools:text="Question" />

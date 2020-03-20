@@ -2,10 +2,13 @@ package com.clem.quizzsimpson;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,27 +19,41 @@ public class SurveyActivity extends AppCompatActivity {
     public Quiz quiz;
     public int indexFlashCard;
     public int numberGoodAnswer;
+    public FlashCard flashCardOnly;
+    public FlashCard flashCard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
 
+        Context context = getApplicationContext();
         Intent quizzIntent = getIntent();
 
         //Retrieve quiz information's and index of the FlashCard
-        if(quizzIntent.hasExtra("flashCardId")){
-            indexFlashCard = quizzIntent.getIntExtra("flashCardId",0);
-        }
-        quiz = quizzIntent.getParcelableExtra("quiz");
+        indexFlashCard = quizzIntent.getIntExtra("flashCardId",0);
         numberGoodAnswer = quizzIntent.getIntExtra("numberGoodAnswer",0);
 
-        final FlashCard flashCard = quiz.flashCardList.get(indexFlashCard);
+        if(quizzIntent.hasExtra("flashCard")){
+            flashCardOnly = quizzIntent.getParcelableExtra("flashCard");
+            flashCard = flashCardOnly;
+            Log.i("Question", "onCreate: " + flashCardOnly.question);
+        }else{
+            quiz = quizzIntent.getParcelableExtra("quiz");
+            flashCard = quiz.flashCardList.get(indexFlashCard);
+        }
+
+        int idImage = context.getResources().getIdentifier("drawable/"+flashCard.imageName, null, context.getPackageName());
 
         // MAJ UI
         TextView questionTextView = findViewById(R.id.questionTextView);
         questionTextView.setText(flashCard.question);
         TextView questionNumberTextView = findViewById(R.id.questionNumberTextView);
-        questionNumberTextView.setText(indexFlashCard + 1 + "/" + quiz.flashCardList.size());
+        if (quiz != null) {
+            questionNumberTextView.setText(indexFlashCard + 1 + "/" + quiz.flashCardList.size());
+        }
+        ImageView imageView = findViewById(R.id.questionImageView);
+        imageView.setImageResource(idImage);
         RadioButton answer1 = findViewById(R.id.answerRadioButton1);
         answer1.setText(flashCard.answerList.get(0));
         RadioButton answer2 = findViewById(R.id.answerRadioButton2);
@@ -47,6 +64,7 @@ public class SurveyActivity extends AppCompatActivity {
         validateButton.setText("Valider");
         validateButton.setTag("validate");
 
+        //Validate Button Pressed
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,16 +85,25 @@ public class SurveyActivity extends AppCompatActivity {
                 //IF Quizz is finished and User want to see results
                 }else if(validateButton.getTag() == "result"){
                     Intent intentResult = new Intent(SurveyActivity.this, ResultActivity.class);
-                    intentResult.putExtra("difficultyId",quiz.difficultyId );
-                    intentResult.putExtra("numberGoodAnswer", numberGoodAnswer + "/" + quiz.flashCardList.size());
-                    intentResult.putExtra("ratio",((float)numberGoodAnswer/(float)quiz.flashCardList.size())*100);
+                    if(flashCardOnly != null){
+                        intentResult.putExtra("numberGoodAnswer", numberGoodAnswer + "/1");
+                        intentResult.putExtra("ratio",((float)numberGoodAnswer/1)*100);
+                    }else{
+                        intentResult.putExtra("difficultyId",quiz.difficultyId );
+                        intentResult.putExtra("numberGoodAnswer", numberGoodAnswer + "/" + quiz.flashCardList.size());
+                        intentResult.putExtra("ratio",((float)numberGoodAnswer/(float)quiz.flashCardList.size())*100);
+                    }
                     startActivity(intentResult);
                 }
             }
         });
     }
 
-    //Function to check if the answer given is true
+    public static int getImageId(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
+    }
+
+    //Function to check if the answer given is true and modify UI in consequence
     private void checkAnswer(FlashCard flashCard) {
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
 
@@ -106,6 +133,11 @@ public class SurveyActivity extends AppCompatActivity {
         //MAJ UI
         answerTextView.setText("La bonne réponse est : " + flashCard.answerList.get(flashCard.goodAnswerId));
 
+        if(flashCardOnly != null){
+            validateButton.setText("Resultat");
+            validateButton.setTag("result");
+            return;
+        }
         if(indexFlashCard + 1 == quiz.flashCardList.size()){
             validateButton.setText("Resultat");
             validateButton.setTag("result");

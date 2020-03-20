@@ -19,7 +19,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView ratioTextView = findViewById(R.id.ratioTextView);
         TextView percentageTextView = findViewById(R.id.percentageTextView);
 
-        switch(resultIntent.getIntExtra("difficultyId",0)){
+        switch(resultIntent.getIntExtra("difficultyId",3)){
             case 0:
                 difficultyTextView.setText("Facile");
                 break;
@@ -28,6 +28,9 @@ public class ResultActivity extends AppCompatActivity {
                 break;
             case 2:
                 difficultyTextView.setText("Difficile");
+                break;
+            case 3:
+                difficultyTextView.setText("Question Unique");
                 break;
         }
 
